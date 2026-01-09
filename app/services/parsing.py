@@ -2,6 +2,16 @@ import asyncio
 from openai import OpenAI
 import json
 import os
+from langdetect import detect
+from googletrans import Translator
+
+def detect_and_translate_to_english(text):
+    detected_lang = detect(text)
+    if detected_lang == 'en':
+        return text
+    translator = Translator()
+    translation = translator.translate(text, dest='en')
+    return translation.text
 
 from app.config import OPENAI_API_KEY, OPENAI_MODEL
 

@@ -2,11 +2,9 @@ from typing import Optional, List
 from pydantic import BaseModel
 from enum import Enum
 
-
 class InvoiceClientType(str, Enum):
     CLIENT = "CLIENT"
     COMPANY = "COMPANY"
-
 
 class ServiceAndItem(BaseModel):
     name: Optional[str] = None
@@ -28,7 +26,7 @@ class Invoice(BaseModel):
     projectInformation: Optional[str] = None
     projectDescription: Optional[str] = None
 
-    serviceAndItems: Optional[List[ServiceAndItem]] = []
+    serviceAndItems: Optional[List[ServiceAndItem]] = None
 
     vat: Optional[float] = None
     subTotal: Optional[float] = None
@@ -42,7 +40,6 @@ class Invoice(BaseModel):
     haveAttachment: Optional[bool] = None
     attachmentUrl: Optional[str] = None
 
-
 class ExtractResponse(BaseModel):
-    user_ID: str
+    userID: str
     invoice: Invoice

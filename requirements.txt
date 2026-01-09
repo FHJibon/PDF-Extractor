@@ -4,7 +4,5 @@ python-multipart
 pydantic
 openai
 python-dotenv
-pdfplumber
-pytesseract
-Pillow
-python-docx
+langdetect
+googletrans==4.0.0-rc1
