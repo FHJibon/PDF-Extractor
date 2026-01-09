@@ -10,7 +10,9 @@ class ServiceAndItem(BaseModel):
     name: Optional[str] = None
     quantity: Optional[float] = None
     unitPrice: Optional[float] = None
+    unitPriceCurrency: Optional[str] = None
     total: Optional[float] = None
+    totalCurrency: Optional[str] = None
 
 
 class Invoice(BaseModel):
@@ -18,6 +20,8 @@ class Invoice(BaseModel):
     issueDate: Optional[str] = None
     dueDate: Optional[str] = None
     type: Optional[InvoiceClientType] = None
+
+    currency: Optional[str] = None
 
     companyName: Optional[str] = None
     email: Optional[str] = None
@@ -29,8 +33,11 @@ class Invoice(BaseModel):
     serviceAndItems: Optional[List[ServiceAndItem]] = None
 
     vat: Optional[float] = None
+    vatCurrency: Optional[str] = None
     subTotal: Optional[float] = None
+    subTotalCurrency: Optional[str] = None
     totalAmount: Optional[float] = None
+    totalAmountCurrency: Optional[str] = None
 
     isPaid: Optional[bool] = None
     paidAt: Optional[str] = None

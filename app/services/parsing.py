@@ -154,6 +154,7 @@ async def parse_with_openai(raw_text: str) -> dict:
             "Return ONLY valid JSON. "
             "Missing fields must be null. "
             "Do not guess the values. "
+            "For any monetary amount field, also extract its currency from the document. "
         )
 
         response = client.responses.create(
@@ -172,6 +173,7 @@ async def parse_with_openai(raw_text: str) -> dict:
                             "issueDate",
                             "dueDate",
                             "type",
+                            "currency",
                             "companyName",
                             "email",
                             "AddressAndContactInfo",
@@ -179,8 +181,11 @@ async def parse_with_openai(raw_text: str) -> dict:
                             "projectDescription",
                             "serviceAndItems",
                             "vat",
+                            "vatCurrency",
                             "subTotal",
+                            "subTotalCurrency",
                             "totalAmount",
+                            "totalAmountCurrency",
                             "isPaid",
                             "paidAt",
                             "additionalNote",
@@ -195,6 +200,8 @@ async def parse_with_openai(raw_text: str) -> dict:
                                     "type": ["string", "null"],
                                     "enum": ["CLIENT", "COMPANY", None],
                                 },
+
+                                "currency": {"type": ["string", "null"]},
 
                                 "companyName": {"type": ["string", "null"]},
                                 "email": {"type": ["string", "null"]},
@@ -212,20 +219,28 @@ async def parse_with_openai(raw_text: str) -> dict:
                                             "name",
                                             "quantity",
                                             "unitPrice",
+                                            "unitPriceCurrency",
                                             "total",
+                                            "totalCurrency",
                                         ],
                                         "properties": {
                                             "name": {"type": ["string", "null"]},
                                             "quantity": {"type": ["number", "null"]},
                                             "unitPrice": {"type": ["number", "null"]},
+                                            "unitPriceCurrency": {"type": ["string", "null"]},
                                             "total": {"type": ["number", "null"]}
+                                            ,
+                                            "totalCurrency": {"type": ["string", "null"]}
                                         }
                                     }
                                 },
 
                                 "vat": {"type": ["number", "null"]},
+                                "vatCurrency": {"type": ["string", "null"]},
                                 "subTotal": {"type": ["number", "null"]},
+                                "subTotalCurrency": {"type": ["string", "null"]},
                                 "totalAmount": {"type": ["number", "null"]},
+                                "totalAmountCurrency": {"type": ["string", "null"]},
 
                                 "isPaid": {"type": ["boolean", "null"]},
                                 "paidAt": {"type": ["string", "null"]},
